@@ -7,6 +7,7 @@
 #include "json.hpp"
 #include <fstream>
 #include <unordered_map>
+#include "product.hpp"
 
 using namespace std;
 typedef nlohmann::json json;
@@ -14,9 +15,7 @@ typedef nlohmann::json json;
 namespace seller {
 
 class Address {
-
 private:
-
     string shop_name;
     string street;
     string city;
@@ -24,79 +23,101 @@ private:
     string zip;
 
 public:
+    Address() {}
 
-    Address(){}
+    Address(string street, string city, string state, string zip)
+        : street(street), city(city), state(state), zip(zip) {}
 
-    Address(string street,string city,string state,string zip){
-        this->street = street;
-        this->city = city;
-        this->state = state;
-        this->zip = zip;
-    }
+    // Setters
+    void set_street(string street) { this->street = street; }
+    void set_shop_name(string shop) { this->shop_name = shop; }
+    void set_city(string city) { this->city = city; }
+    void set_state(string state) { this->state = state; }
+    void set_zip(string zip) { this->zip = zip; }
 
-    // setters
-    void set_street(string street){ this->street = street; }
-    void set_shop_name(string shop){ this->shop_name = shop; }
-    void set_city(string city){ this->city = city; }
-    void set_state(string state){ this->state = state; }
-    void set_zip(string zip){ this->zip = zip; }
-
-    // getters
+    // Getters
     string get_shop_name() const { return shop_name; }
     string get_street() const { return street; }
     string get_city() const { return city; }
     string get_state() const { return state; }
     string get_zip() const { return zip; }
     string get_address() const {
-        string addr =shop_name + ", " + street + ", " + city + ", " + state + ", " + zip + ".";
-        return addr; 
+        return shop_name + ", " + street + ", " + city + ", " + state + ", " + zip + ".";
     }
-
 };
 
-//for the seller info
 class Seller {
-
 private:
-
     string name;
     string email;
     string phone;
+    Address address;
 
 public:
+    Seller() {}
 
-    Address address;
-    Seller(){}
+    Seller(string name, string email, string phone, Address addr)
+        : name(name), email(email), phone(phone), address(addr) {}
 
-    Seller(string name,string email,string phone,Address addr){
-        this->name = name;
-        this->email = email;
-        this->phone = phone;
-        this->address = addr;
-    }
-
-    void print_seller_info(){
+    void print_seller_info() const {
         cout << "name : " << name << endl;
         cout << "email : " << email << endl;
         cout << "phone : " << phone << endl;
         cout << "address : " << address.get_address() << endl;
-
     }
 
-    // setters
+    // Setters
     void set_name(string name) { this->name = name; }
-    void set_email(string email){ this->email = email; }
-    void set_phone(string phone){ this->phone = phone; }
-    void set_addr(Address addr){ this->address = addr; }
+    void set_email(string email) { this->email = email; }
+    void set_phone(string phone) { this->phone = phone; }
+    void set_address(Address addr) { this->address = addr; }
 
-    //getters
+    // Getters
     string get_name() const { return name; }
     string get_email() const { return email; }
     string get_phone() const { return phone; }
     Address get_address() const { return address; }
-
 };
 
+inline void load_all_seller_products(unordered_map<string, vector<product::Product> > &seller_products) {
+    ifstream infile("/Users/levi/Desktop/E-Commerce-Backend-CPP/JSON/seller.json");
+    if (!infile.is_open()) {
+        cerr << "Error opening seller.json file." << endl;
+        return;
+    }
+
+    json j;
+    try {
+        infile >> j;
+    } catch (...) {
+        cerr << "Error reading JSON data." << endl;
+        return;
+    }
+    infile.close();
+
+    // Iterate through each seller in the JSON
+    for (auto &[seller_name, seller_data] : j.items()) {
+        vector<product::Product> products;
+
+        // Check if "products" field exists
+        if (seller_data.contains("products")) {
+            for (auto &[category, product_list] : seller_data["products"].items()) {
+                for (const auto &product_json : product_list) {
+                    // Create Product object and assign category
+                    product::Product product(
+                        product_json.value("name", ""),
+                        product_json.value("price", ""),
+                        product_json.value("stock", ""),
+                        category  // Use category from the JSON key
+                    );
+                    products.push_back(product);
+                }
+            }
+        }
+        // Add seller's products to the map
+        seller_products[seller_name] = products;
+    }
+}
 
 inline void register_user(unordered_map<string,Seller> &seller_map){
 
@@ -139,78 +160,102 @@ inline void register_user(unordered_map<string,Seller> &seller_map){
     address.set_zip(temp);
 
     // add address object to the seller class
-    seller.set_addr(address);
+    seller.set_address(address);
 
     // add object to the map
     seller_map[name] = seller;
 
 }
 
-inline void delete_user(unordered_map<string,Seller> &seller_map,const string &name){
+inline void delete_user(unordered_map<string, Seller>& seller_map, const string& name) {
     seller_map.erase(name);
 }
 
-inline void load_json_data_to_map(unordered_map<string,Seller> &seller_map){
+inline void add_product(const string& username, unordered_map<string, json>& product_data) {
+    product::Product product;
+    string temp, category;
+
+    cout << "Enter product name: ";
+    cin >> temp;
+    product.set_name(temp);
+
+    cout << "Enter product price: ";
+    cin >> temp;
+    product.set_price(temp);
+
+    cout << "Enter product stock: ";
+    cin >> temp;
+    product.set_stock(temp);
+
+    cout << "Enter product category: ";
+    cin >> category;
+    product.set_category(category);
+    
+    // Check if the category exists for the given user in product_data
+    if (product_data[username].contains(category)) {
+        // Append product to the existing category
+        product_data[username][category].push_back(product.to_json());
+    } else {
+        // Create a new category and add the product
+        product_data[username][category] = json::array({product.to_json()});
+    }
+}
+
+inline void load_json_data_to_map(unordered_map<string, Seller>& seller_map, unordered_map<string, json>& product_data) {
     json j;
-    ifstream infile("../JSON/seller.json");
-    if(infile.is_open()){
-        try{
+    ifstream infile("/Users/levi/Desktop/E-Commerce-Backend-CPP/JSON/seller.json");
+    if (infile.is_open()) {
+        try {
             infile >> j;
-        }
-        catch(...){
+        } catch (...) {
             cerr << "Error reading existing JSON data" << endl;
         }
         infile.close();
-    }
-    else{
-        cerr << "Error opening seller.json file for loading data to map.";
+    } else {
+        cerr << "Error opening seller.json file for loading data to map." << endl;
         return;
     }
 
-     for (auto& [name, seller_json] : j.items()) {
+    for (auto& [name, seller_json] : j.items()) {
         try {
-            // get address from object
             json addr_json = seller_json["address"];
             Address address(
-                addr_json["street"].get<std::string>(),
-                addr_json["city"].get<std::string>(),
-                addr_json["state"].get<std::string>(),
-                addr_json["zip"].get<std::string>()
+                addr_json["street"].get<string>(),
+                addr_json["city"].get<string>(),
+                addr_json["state"].get<string>(),
+                addr_json["zip"].get<string>()
             );
-            address.set_shop_name(addr_json["shop_name"].get<std::string>());
+            address.set_shop_name(addr_json["shop_name"].get<string>());
 
-            // get all details
             Seller seller(
-                seller_json["name"].get<std::string>(),
-                seller_json["email"].get<std::string>(),
-                seller_json["phone"].get<std::string>(),
+                seller_json["name"].get<string>(),
+                seller_json["email"].get<string>(),
+                seller_json["phone"].get<string>(),
                 address
             );
 
-            // insert seller into the map using their name as the key
             seller_map[name] = seller;
+
+            if (seller_json.contains("products")) {
+                product_data[name] = seller_json["products"];
+            }
         } catch (...) {
-            std::cerr << "Error parsing seller data in loading function" << name << std::endl;
+            cerr << "Error parsing seller data in loading function for " << name << endl;
         }
     }
 }
 
-inline void save_data(unordered_map<string, Seller> &seller_map) {
-    
+inline void save_data(const unordered_map<string, Seller>& seller_map, const unordered_map<string, json>& product_data) {
     json j;
-
     for (const auto& [name, seller] : seller_map) {
-
-        // Create a JSON object for the Address
-       json address_json = {
-            {"shop_name", seller.address.get_shop_name()},
-            {"street", seller.address.get_street()},
-            {"city", seller.address.get_city()},
-            {"state", seller.address.get_state()},
-            {"zip", seller.address.get_zip()}
+        json address_json = {
+            {"shop_name", seller.get_address().get_shop_name()},
+            {"street", seller.get_address().get_street()},
+            {"city", seller.get_address().get_city()},
+            {"state", seller.get_address().get_state()},
+            {"zip", seller.get_address().get_zip()}
         };
 
-        // Create a JSON object for the Seller
         json seller_json = {
             {"name", seller.get_name()},
             {"email", seller.get_email()},
@@ -218,20 +263,22 @@ inline void save_data(unordered_map<string, Seller> &seller_map) {
             {"address", address_json}
         };
 
-        // Add seller_json to the main JSON object, using name as key
+        if (product_data.find(name) != product_data.end()) {
+            seller_json["products"] = product_data.at(name);
+        }
+
         j[name] = seller_json;
     }
 
-    // Write JSON to file
-    std::ofstream file("../JSON/seller.json");
+    ofstream file("/Users/levi/Desktop/E-Commerce-Backend-CPP/JSON/seller.json");
     if (file.is_open()) {
-        file << j.dump(4);  
+        file << j.dump(4);
         file.close();
     } else {
         cout << "Error saving data in seller.json file" << endl;
     }
 }
 
-}
+} // namespace seller
 
-#endif 
+#endif // SELLER_H

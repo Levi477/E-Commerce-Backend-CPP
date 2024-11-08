@@ -1,4 +1,16 @@
 {
+    "d": {
+        "address": {
+            "city": "e",
+            "shop_name": "e",
+            "state": "e",
+            "street": "e",
+            "zip": "e"
+        },
+        "email": "e",
+        "name": "d",
+        "phone": "e"
+    },
     "deep": {
         "address": {
             "city": "5",
@@ -9,7 +21,43 @@
         },
         "email": "1",
         "name": "deep",
-        "phone": "2"
+        "phone": "2",
+        "products": {
+            "3": [
+                {
+                    "category": "3",
+                    "name": "3",
+                    "price": "3",
+                    "stock": "3"
+                },
+                {
+                    "name": "3",
+                    "price": "3",
+                    "stock": "3"
+                }
+            ],
+            "4": [
+                {
+                    "name": "4",
+                    "price": "4",
+                    "stock": "4"
+                }
+            ],
+            "tech": [
+                {
+                    "category": "tech",
+                    "name": "dock",
+                    "price": "400",
+                    "stock": "7"
+                },
+                {
+                    "category": "tech",
+                    "name": "spray",
+                    "price": "400",
+                    "stock": "5"
+                }
+            ]
+        }
     },
     "harsh": {
         "address": {
@@ -21,6 +69,38 @@
         },
         "email": "1",
         "name": "harsh",
-        "phone": "2"
+        "phone": "2",
+        "products": {
+            "3": [
+                {
+                    "category": "3",
+                    "name": "spary",
+                    "price": "f",
+                    "stock": "f"
+                }
+            ]
+        }
+    },
+    "nisarg": {
+        "address": {
+            "city": "e",
+            "shop_name": "e",
+            "state": "e",
+            "street": "e",
+            "zip": "e"
+        },
+        "email": "dee",
+        "name": "nisarg",
+        "phone": "e",
+        "products": {
+            "e": [
+                {
+                    "category": "e",
+                    "name": "deep",
+                    "price": "e",
+                    "stock": "e"
+                }
+            ]
+        }
     }
 }

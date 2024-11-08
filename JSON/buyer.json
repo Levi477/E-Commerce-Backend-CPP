@@ -1,0 +1,63 @@
+{
+    "dep": {
+        "address": {
+            "city": "",
+            "home": "",
+            "state": "",
+            "street": "",
+            "zip": ""
+        },
+        "email": "2",
+        "phone": "2"
+    },
+    "harsh": {
+        "address": {
+            "city": "",
+            "home": "",
+            "state": "",
+            "street": "",
+            "zip": ""
+        },
+        "email": "harsh@deep.com",
+        "phone": "9879"
+    },
+    "nisarg": {
+        "address": {
+            "city": "",
+            "home": "",
+            "state": "",
+            "street": "",
+            "zip": ""
+        },
+        "cart": [
+            {
+                "category": "e",
+                "name": "deep",
+                "price": "e",
+                "stock": "e"
+            },
+            {
+                "category": "tech",
+                "name": "spray",
+                "price": "400",
+                "stock": "5"
+            },
+            {
+                "category": "tech",
+                "name": "dock",
+                "price": "400",
+                "stock": "7"
+            }
+        ],
+        "email": "dee",
+        "favourite": [
+            {
+                "category": "tech",
+                "name": "dock",
+                "price": "400",
+                "stock": "7"
+            }
+        ],
+        "phone": "e"
+    }
+}

@@ -7,11 +7,12 @@
 #include "json.hpp"
 #include <fstream>
 #include <unordered_map>
-
+#include "product.hpp"
 using namespace std;
 typedef nlohmann::json json;
 
 namespace buyer {
+
 
 class Address {
 
@@ -48,6 +49,15 @@ public:
     string get_address() const {
         return home_name + ", " + street + ", " + city + ", " + state + ", " + zip + ".";
     }
+    json to_json(){
+      return {
+        {"home" , home_name},
+        {"street" , street},
+        {"city" , city},
+        {"state" , state},
+        {"zip" , zip},
+    };
+  }
 };
 
 class Buyer {
@@ -56,7 +66,8 @@ private:
     string name;
     string email;
     string phone;
-
+    vector<product::Product> cart;
+    vector<product::Product> favourites;
 public:
     Address address;
     Buyer() {}
@@ -86,6 +97,16 @@ public:
     string get_email() const { return email; }
     string get_phone() const { return phone; }
     Address get_address() const { return address; }
+    vector<product::Product>& get_cart()  { return cart; }
+    vector<product::Product>& get_favourite()  { return favourites; }
+
+    void add_to_cart(const product::Product& product) {
+        cart.push_back(product);
+    }
+
+    void add_to_favourites(const product::Product& product) {
+        favourites.push_back(product);
+    }
 };
 
 inline void register_buyer(unordered_map<string, Buyer> &buyer_map) {
@@ -106,8 +127,7 @@ inline void register_buyer(unordered_map<string, Buyer> &buyer_map) {
     cin >> temp;
     buyer.set_phone(temp);
 
-    cout << "Address: " << endl;
-    cout << "Enter home name: ";
+    cout << "Address: " << endl; cout << "Enter home name: ";
     cin >> temp;
     address.set_home_name(temp);
 
@@ -138,9 +158,10 @@ inline void delete_buyer(unordered_map<string, Buyer> &buyer_map, const string &
     buyer_map.erase(name);
 }
 
+// Load function for buyer data including cart and favourites
 inline void load_json_data_to_map(unordered_map<string, Buyer> &buyer_map) {
     json j;
-    ifstream infile("../JSON/buyer.json");
+    ifstream infile("/Users/levi/Desktop/E-Commerce-Backend-CPP/JSON/buyer.json");
     if (infile.is_open()) {
         try {
             infile >> j;
@@ -155,67 +176,70 @@ inline void load_json_data_to_map(unordered_map<string, Buyer> &buyer_map) {
 
     for (auto &[name, buyer_json] : j.items()) {
         try {
-            // get address from object
-            json addr_json = buyer_json["address"];
-            Address address(
-                addr_json["street"].get<std::string>(),
-                addr_json["city"].get<std::string>(),
-                addr_json["state"].get<std::string>(),
-                addr_json["zip"].get<std::string>()
-            );
-            address.set_home_name(addr_json["home_name"].get<std::string>());
+            Buyer buyer;
+            buyer.set_name(name);
+            buyer.set_email(buyer_json["email"].get<string>());
+            buyer.set_phone(buyer_json["phone"].get<string>());
 
-            // get all details
-            Buyer buyer(
-                buyer_json["name"].get<std::string>(),
-                buyer_json["email"].get<std::string>(),
-                buyer_json["phone"].get<std::string>(),
-                address
-            );
+            // Parse cart
+            for (const auto& product_json : buyer_json["cart"]) {
+                product::Product product(
+                    product_json["name"].get<string>(),
+                    product_json["price"].get<string>(),
+                    product_json["stock"].get<string>(),
+                    product_json["category"].get<string>()
+                );
+                buyer.add_to_cart(product);
+            }
 
-            // inserting the  buyer into the map using their name as the key
+            // Parse favourites
+            for (const auto& product_json : buyer_json["favourite"]) {
+                product::Product product(
+                    product_json["name"].get<string>(),
+                    product_json["price"].get<string>(),
+                    product_json["stock"].get<string>(),
+                    product_json["category"].get<string>()
+                );
+                buyer.add_to_favourites(product);
+            }
+
             buyer_map[name] = buyer;
         } catch (...) {
-            cerr << "Error parsing buyer data in loading function" << name << endl;
+            cerr << "Error parsing buyer data for " << name << endl;
         }
     }
 }
 
+// Save function for buyer data including cart and favourites
 inline void save_data(unordered_map<string, Buyer> &buyer_map) {
     json j;
 
-    for (const auto &[name, buyer] : buyer_map) {
-        // Create a JSON object for the Address
-        json address_json = {
-            {"home_name", buyer.address.get_home_name()},
-            {"street", buyer.address.get_street()},
-            {"city", buyer.address.get_city()},
-            {"state", buyer.address.get_state()},
-            {"zip", buyer.address.get_zip()}
-        };
+    for ( auto &[name, buyer] : buyer_map) {
+        json buyer_json;
+        buyer_json["email"] = buyer.get_email();
+        buyer_json["phone"] = buyer.get_phone();
+        buyer_json["address"] = buyer.get_address().to_json();
+        // Save cart products
+        for ( auto& product : buyer.get_cart()) {
+            buyer_json["cart"].push_back(product.to_json());
+        }
 
-        // Creating  a JSON object for the Buyer
-        json buyer_json = {
-            {"name", buyer.get_name()},
-            {"email", buyer.get_email()},
-            {"phone", buyer.get_phone()},
-            {"address", address_json}
-        };
+        // Save favourite products
+        for ( auto& product : buyer.get_favourite()) {
+            buyer_json["favourite"].push_back(product.to_json());
+        }
 
-        // Adding the  buyer_json to the main JSON object, using name as key
         j[name] = buyer_json;
     }
 
-    // Write JSON to file
-    ofstream file("../JSON/buyer.json");
+    ofstream file("/Users/levi/Desktop/E-Commerce-Backend-CPP/JSON/buyer.json");
     if (file.is_open()) {
         file << j.dump(4);
         file.close();
     } else {
-        cout << "Error saving data in buyer.json file" << endl;
+        cout << "Error saving data to buyer.json file" << endl;
     }
 }
-
 }
 
 #endif
