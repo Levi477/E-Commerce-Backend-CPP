@@ -59,12 +59,40 @@ public:
     Seller(string name, string email, string phone, Address addr)
         : name(name), email(email), phone(phone), address(addr) {}
 
-    void print_seller_info() const {
+    void print_seller_info(unordered_map<string,json > &product_data) const {
+        string username = this->name;
         cout << "name : " << name << endl;
         cout << "email : " << email << endl;
         cout << "phone : " << phone << endl;
-        cout << "address : " << address.get_address() << endl;
+        cout << "address : " << address.get_address() << endl;   
+    std::cout << "Products:" << std::endl;
+    for (const auto &product_entry : product_data) {
+        const std::string &product_name = product_entry.first;
+        const json &product_details = product_entry.second;
+
+ if (product_data.find(username) == product_data.end()) {
+        std::cout << "No products found for this seller." << std::endl;
+        return;
     }
+
+    // Print products by category
+    std::cout << "Products:" << std::endl;
+    for (const auto &category_entry : product_data.at(username).items()) {
+        const std::string &category = category_entry.key(); // Get the category name
+        const json &products = category_entry.value();      // Get the list of products
+
+        std::cout << "  Category: " << category << std::endl;
+        
+        // Loop through each product in the category
+        for (const auto &product : products) {
+            std::cout << "    Product Name: " << product["name"] << std::endl;
+            std::cout << "    Price: " << product["price"] << std::endl;
+            std::cout << "    Stock: " << product["stock"] << std::endl;
+            std::cout << std::endl;
+        }
+      }
+    }
+  }
 
     // Setters
     void set_name(string name) { this->name = name; }
@@ -126,37 +154,39 @@ inline void register_user(unordered_map<string,Seller> &seller_map){
 
     string temp;
     string name;
+    cin.ignore();
+
     cout << "Enter your name : " ;
-    cin >> name;
+    getline(cin,name);
     seller.set_name(name);
 
     cout << "Enter your email : ";
-    cin >> temp;
+    getline(cin,temp);
     seller.set_email(temp);
 
     cout << "Enter your phone number : ";
-    cin >> temp;
+    getline(cin,temp);
     seller.set_phone(temp);
 
     cout << "Address : " << endl;
     cout << "Enter shop name : ";
-    cin >> temp;
+    getline(cin,temp);
     address.set_shop_name(temp);
 
     cout << "Enter street address : ";
-    cin >> temp;
+    getline(cin,temp);
     address.set_street(temp);
 
     cout << "Enter city name : ";
-    cin >> temp;
+    getline(cin,temp);
     address.set_city(temp);
 
     cout << "Enter state name : ";
-    cin >> temp;
+    getline(cin,temp);
     address.set_state(temp);
 
     cout << "Enter zipcode : ";
-    cin >> temp;
+    getline(cin,temp);
     address.set_zip(temp);
 
     // add address object to the seller class
@@ -175,21 +205,23 @@ inline void add_product(const string& username, unordered_map<string, json>& pro
     product::Product product;
     string temp, category;
 
+
     cout << "Enter product name: ";
-    cin >> temp;
+    cin.ignore();
+    getline(cin,temp);
     product.set_name(temp);
 
     cout << "Enter product price: ";
-    cin >> temp;
+    getline(cin,temp);
     product.set_price(temp);
 
     cout << "Enter product stock: ";
-    cin >> temp;
+    getline(cin,temp);
     product.set_stock(temp);
 
     cout << "Enter product category: ";
-    cin >> category;
-    product.set_category(category);
+    getline(cin,temp);
+    product.set_category(temp);
     
     // Check if the category exists for the given user in product_data
     if (product_data[username].contains(category)) {

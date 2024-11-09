@@ -1,106 +1,36 @@
 {
-    "d": {
+    "deep gajjar": {
         "address": {
-            "city": "e",
-            "shop_name": "e",
-            "state": "e",
-            "street": "e",
-            "zip": "e"
+            "city": "bhv",
+            "shop_name": "deep watchmart",
+            "state": "guj",
+            "street": "street no.2 ",
+            "zip": "364002"
         },
-        "email": "e",
-        "name": "d",
-        "phone": "e"
-    },
-    "deep": {
-        "address": {
-            "city": "5",
-            "shop_name": "3",
-            "state": "6",
-            "street": "4",
-            "zip": "7"
-        },
-        "email": "1",
-        "name": "deep",
-        "phone": "2",
+        "email": "deep54@gmail.com",
+        "name": "deep gajjar",
+        "phone": "9879261208",
         "products": {
-            "3": [
+            "fashion": [
                 {
-                    "category": "3",
-                    "name": "3",
-                    "price": "3",
-                    "stock": "3"
-                },
-                {
-                    "name": "3",
-                    "price": "3",
-                    "stock": "3"
-                }
-            ],
-            "4": [
-                {
-                    "name": "4",
-                    "price": "4",
-                    "stock": "4"
-                }
-            ],
-            "tech": [
-                {
-                    "category": "tech",
-                    "name": "dock",
-                    "price": "400",
-                    "stock": "7"
-                },
-                {
-                    "category": "tech",
-                    "name": "spray",
-                    "price": "400",
-                    "stock": "5"
+                    "category": "fashion",
+                    "name": "exotic watch",
+                    "price": "5000",
+                    "stock": "50"
                 }
             ]
         }
     },
-    "harsh": {
+    "nisarg patel": {
         "address": {
-            "city": "5",
-            "shop_name": "3",
-            "state": "6",
-            "street": "4",
-            "zip": "7"
+            "city": "jodhpur",
+            "shop_name": "nisarg-sunglasses",
+            "state": "rajasthan",
+            "street": "strret no.4",
+            "zip": "34002"
         },
-        "email": "1",
-        "name": "harsh",
-        "phone": "2",
-        "products": {
-            "3": [
-                {
-                    "category": "3",
-                    "name": "spary",
-                    "price": "f",
-                    "stock": "f"
-                }
-            ]
-        }
-    },
-    "nisarg": {
-        "address": {
-            "city": "e",
-            "shop_name": "e",
-            "state": "e",
-            "street": "e",
-            "zip": "e"
-        },
-        "email": "dee",
-        "name": "nisarg",
-        "phone": "e",
-        "products": {
-            "e": [
-                {
-                    "category": "e",
-                    "name": "deep",
-                    "price": "e",
-                    "stock": "e"
-                }
-            ]
-        }
+        "email": "nisarg@123.com",
+        "name": "nisarg patel",
+        "phone": "98788787878"
     }
 }

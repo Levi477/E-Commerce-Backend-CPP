@@ -80,10 +80,10 @@ public:
     }
 
     void print_buyer_info() {
-        cout << "Name: " << name << endl;
-        cout << "Email: " << email << endl;
-        cout << "Phone: " << phone << endl;
-        cout << "Address: " << address.get_address() << endl;
+        cout << "Name: " << this->name << endl;
+        cout << "Email: " << this->email << endl;
+        cout << "Phone: " << this->phone << endl;
+        cout << "Address: " << this->address.get_address() << endl;
     }
 
     // setters
@@ -113,38 +113,40 @@ inline void register_buyer(unordered_map<string, Buyer> &buyer_map) {
     Address address;
     Buyer buyer;
 
+    cin.ignore();
+
     string temp;
     string name;
     cout << "Enter your name: ";
-    cin >> name;
+    getline(cin,name);
     buyer.set_name(name);
 
     cout << "Enter your email: ";
-    cin >> temp;
+    getline(cin,temp);
     buyer.set_email(temp);
 
     cout << "Enter your phone number: ";
-    cin >> temp;
+    getline(cin,temp);
     buyer.set_phone(temp);
 
     cout << "Address: " << endl; cout << "Enter home name: ";
-    cin >> temp;
+    getline(cin,temp);
     address.set_home_name(temp);
 
     cout << "Enter street address: ";
-    cin >> temp;
+    getline(cin,temp);
     address.set_street(temp);
 
     cout << "Enter city name: ";
-    cin >> temp;
+    getline(cin,temp);
     address.set_city(temp);
 
     cout << "Enter state name: ";
-    cin >> temp;
+    getline(cin,temp);
     address.set_state(temp);
 
     cout << "Enter zipcode: ";
-    cin >> temp;
+    getline(cin,temp);
     address.set_zip(temp);
 
     // add address object to the buyer class

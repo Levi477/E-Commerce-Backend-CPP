@@ -1,3 +1,4 @@
+#include <__utility/pair.h>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -50,6 +51,8 @@ int main() {
     cout << "2 . Seller " << endl;
     cout << "Enter your choice : " << endl;
     cin >> choice;
+    buyer::load_json_data_to_map(buyer_map);
+    seller::load_json_data_to_map(seller_map,product_map);
     if(choice == '1'){
     // If user is Buyer
     cout << "-----------BUYER------------------" << endl;
@@ -68,37 +71,57 @@ int main() {
     string temp = " ";
     unordered_map<string,vector<product::Product> > all_seller_products;
     int item_number ; 
-    string seller_name ; 
+    string seller_name ;
+
     switch (sec_choice) {
 
       case '1':
         buyer::register_buyer(buyer_map);
-        buyer::load_json_data_to_map(buyer_map);
         buyer::save_data(buyer_map);
         break;
       case '2':
         cout << "Enter your username : ";
-        cin >> username;
+        cin.ignore();
+        getline(cin,username);
+        if(buyer_map.count(username) == 0){
+            cout << "Username doesn't exist!!";
+            break;
+          }
         buyer::delete_buyer(buyer_map,username);
         buyer::save_data(buyer_map);
         break;
 
       case '3':
         cout << "Enter username : ";
-        cin >> username;
-        buyer::load_json_data_to_map(buyer_map);
+        cin.ignore();
+        getline(cin,username);
+        if(buyer_map.count(username) == 0){
+            cout << "Username doesn't exist!!";
+            break;
+          }
         sort_by_name(buyer_map[username].get_cart());
         break;
 
       case '4':
         cout << "Enter your username : ";
-        cin >> username;
-          buyer::load_json_data_to_map(buyer_map);
+        cin.ignore();
+        getline(cin,username);
+          if(buyer_map.count(username) == 0){
+            cout << "Username doesn't exist!!";
+            break;
+          }
         sort_by_name(buyer_map[username].get_favourite());
         break;
 
       case '5':
-         
+        cout << "Enter username : ";
+        cin.ignore();
+          getline(cin,username);
+          if(buyer_map.count(username) == 0){
+            cout << "Username doesn't exist!!";
+            break;
+          }
+        buyer_map[username].print_buyer_info();
         break;
 
       case '6':
@@ -115,12 +138,18 @@ int main() {
             }
           }
 
+          cout << "Enter your username : ";
+          cin.ignore();
+          getline(cin,username);
+          if(buyer_map.count(username) == 0){
+            cout << "Username doesn't exist!!";
+            break;
+          }
           cout << "Enter seller name : ";
-          cin >> seller_name;
+          cin.ignore();
+          getline(cin,seller_name);
           cout << "Enter item number to add to cart : ";
           cin >> item_number;
-          cout << "Enter your username : ";
-          cin >> username;
           buyer::load_json_data_to_map(buyer_map);
           buyer_map[username].add_to_cart(all_seller_products[seller_name][item_number-1]);
           buyer::save_data(buyer_map);
@@ -141,13 +170,18 @@ int main() {
                 count++;
             }
           }
-
+          cout << "Enter your username : ";
+          cin.ignore();
+          getline(cin,username);
+          if(buyer_map.count(username) == 0){
+            cout << "Username doesn't exist!!";
+            break;
+          }
           cout << "Enter seller name : ";
-          cin >> seller_name;
+          cin.ignore();
+          getline(cin,seller_name);
           cout << "Enter item number to add to favourites : ";
           cin >> item_number;
-          cout << "Enter your username : ";
-          cin >> username;
           buyer::load_json_data_to_map(buyer_map);
           buyer_map[username].add_to_favourites(all_seller_products[seller_name][item_number-1]);
           buyer::save_data(buyer_map);
@@ -175,25 +209,34 @@ int main() {
     switch (sec_choice) {
       case '1':
           seller::register_user(seller_map);
-          seller::load_json_data_to_map(seller_map,product_map);
           seller::save_data(seller_map,product_map);
           break;
-
       case '2':
           cout << "Enter your username : ";
-          cin >> username;
+          cin.ignore();
+          getline(cin,username);
+          if(seller_map.count(username) == 0){
+            cout << "Username doesn't exist";
+            break;
+          }
           seller::delete_user(seller_map,username);
           break;
       case '3':
           cout << "Enter your username : ";
-          cin >> username;
-          seller_map[username].print_seller_info();
+          cin.ignore();
+          getline(cin,username);
+          if(seller_map.count(username) == 0){
+            cout << "Username doesn't exist!" << endl;
+            break;
+          }
+          seller_map[username].print_seller_info(product_map);
+          break;
       case '4':
           cout << "Enter your username : ";
-          cin >> username;
-          seller::load_json_data_to_map(seller_map,product_map);
+          cin.ignore();
+          getline(cin,username);
           if(seller_map.count(username) == 0){
-            cout << "Username not found!!" << endl;
+            cout << "Username doesn't exist";
             break;
           }
           seller::add_product(username,product_map);
