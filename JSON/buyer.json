@@ -1,0 +1,53 @@
+{
+    "ram": {
+        "address": {
+            "city": "",
+            "home": "",
+            "state": "",
+            "street": "",
+            "zip": ""
+        },
+        "cart": [
+            {
+                "category": "fashion",
+                "name": "exotic watch",
+                "price": "5000",
+                "stock": "50"
+            },
+            {
+                "category": "",
+                "name": "xotic glasses",
+                "price": "4000",
+                "stock": "50"
+            },
+            {
+                "category": "",
+                "name": "aptop",
+                "price": "140000",
+                "stock": "10"
+            }
+        ],
+        "email": "ram@gmail.com",
+        "favourite": [
+            {
+                "category": "fashion",
+                "name": "exotic watch",
+                "price": "5000",
+                "stock": "50"
+            },
+            {
+                "category": "fashion",
+                "name": "exotic watch",
+                "price": "5000",
+                "stock": "50"
+            },
+            {
+                "category": "fashion",
+                "name": "exotic watch",
+                "price": "5000",
+                "stock": "50"
+            }
+        ],
+        "phone": "987946"
+    }
+}

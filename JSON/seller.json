@@ -11,6 +11,14 @@
         "name": "deep gajjar",
         "phone": "9879261208",
         "products": {
+            "": [
+                {
+                    "category": "fashion",
+                    "name": "xotic glasses",
+                    "price": "4000",
+                    "stock": "50"
+                }
+            ],
             "fashion": [
                 {
                     "category": "fashion",
@@ -31,6 +39,16 @@
         },
         "email": "nisarg@123.com",
         "name": "nisarg patel",
-        "phone": "98788787878"
+        "phone": "98788787878",
+        "products": {
+            "": [
+                {
+                    "category": "tech",
+                    "name": "aptop",
+                    "price": "140000",
+                    "stock": "10"
+                }
+            ]
+        }
     }
 }

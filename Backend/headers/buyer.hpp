@@ -8,7 +8,9 @@
 #include <fstream>
 #include <unordered_map>
 #include "product.hpp"
+
 using namespace std;
+
 typedef nlohmann::json json;
 
 namespace buyer {
@@ -47,7 +49,7 @@ public:
     string get_state() const { return state; }
     string get_zip() const { return zip; }
     string get_address() const {
-        return home_name + ", " + street + ", " + city + ", " + state + ", " + zip + ".";
+        return this->home_name + ", " + this->street + ", " + this->city + ", " + this->state + ", " + this->zip + ".";
     }
     json to_json(){
       return {
@@ -110,7 +112,6 @@ public:
 };
 
 inline void register_buyer(unordered_map<string, Buyer> &buyer_map) {
-    Address address;
     Buyer buyer;
 
     cin.ignore();
@@ -129,28 +130,27 @@ inline void register_buyer(unordered_map<string, Buyer> &buyer_map) {
     getline(cin,temp);
     buyer.set_phone(temp);
 
-    cout << "Address: " << endl; cout << "Enter home name: ";
+    cout << "Address: " << endl;
+
+    cout << "Enter home name: ";
     getline(cin,temp);
-    address.set_home_name(temp);
+    buyer.address.set_home_name(temp);
 
     cout << "Enter street address: ";
     getline(cin,temp);
-    address.set_street(temp);
+    buyer.address.set_street(temp);
 
     cout << "Enter city name: ";
     getline(cin,temp);
-    address.set_city(temp);
+    buyer.address.set_city(temp);
 
     cout << "Enter state name: ";
     getline(cin,temp);
-    address.set_state(temp);
+    buyer.address.set_state(temp);
 
     cout << "Enter zipcode: ";
     getline(cin,temp);
-    address.set_zip(temp);
-
-    // add address object to the buyer class
-    buyer.set_addr(address);
+    buyer.address.set_zip(temp);
 
     // add object to the map
     buyer_map[name] = buyer;
@@ -168,7 +168,7 @@ inline void load_json_data_to_map(unordered_map<string, Buyer> &buyer_map) {
         try {
             infile >> j;
         } catch (...) {
-            cerr << "Error reading existing JSON data" << endl;
+            /*cerr << "Error reading existing JSON data" << endl;*/
         }
         infile.close();
     } else {
@@ -217,10 +217,12 @@ inline void save_data(unordered_map<string, Buyer> &buyer_map) {
     json j;
 
     for ( auto &[name, buyer] : buyer_map) {
+
         json buyer_json;
         buyer_json["email"] = buyer.get_email();
         buyer_json["phone"] = buyer.get_phone();
         buyer_json["address"] = buyer.get_address().to_json();
+    
         // Save cart products
         for ( auto& product : buyer.get_cart()) {
             buyer_json["cart"].push_back(product.to_json());
@@ -230,7 +232,7 @@ inline void save_data(unordered_map<string, Buyer> &buyer_map) {
         for ( auto& product : buyer.get_favourite()) {
             buyer_json["favourite"].push_back(product.to_json());
         }
-
+    
         j[name] = buyer_json;
     }
 
@@ -241,7 +243,7 @@ inline void save_data(unordered_map<string, Buyer> &buyer_map) {
     } else {
         cout << "Error saving data to buyer.json file" << endl;
     }
-}
+  }
 }
 
 #endif

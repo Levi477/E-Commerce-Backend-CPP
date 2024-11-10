@@ -66,32 +66,28 @@ public:
         cout << "phone : " << phone << endl;
         cout << "address : " << address.get_address() << endl;   
     std::cout << "Products:" << std::endl;
-    for (const auto &product_entry : product_data) {
-        const std::string &product_name = product_entry.first;
-        const json &product_details = product_entry.second;
+// Check if the username exists in product_data
+if (product_data.find(username) == product_data.end()) {
+    std::cout << "No products found for this seller." << std::endl;
+    return;
+}
 
- if (product_data.find(username) == product_data.end()) {
-        std::cout << "No products found for this seller." << std::endl;
-        return;
+// Print products by category for the specific seller
+std::cout << "Products for seller " << username << ":" << std::endl;
+for (const auto &category_entry : product_data.at(username).items()) {
+    const std::string &category = category_entry.key(); // Get the category name
+    const json &products = category_entry.value();      // Get the list of products
+
+    std::cout << "  Category: " << category << std::endl;
+
+    // Loop through each product in the category
+    for (const auto &product : products) {
+        std::cout << "    Product Name: " << product["name"] << std::endl;
+        std::cout << "    Price: " << product["price"] << std::endl;
+        std::cout << "    Stock: " << product["stock"] << std::endl;
+        std::cout << std::endl;
     }
-
-    // Print products by category
-    std::cout << "Products:" << std::endl;
-    for (const auto &category_entry : product_data.at(username).items()) {
-        const std::string &category = category_entry.key(); // Get the category name
-        const json &products = category_entry.value();      // Get the list of products
-
-        std::cout << "  Category: " << category << std::endl;
-        
-        // Loop through each product in the category
-        for (const auto &product : products) {
-            std::cout << "    Product Name: " << product["name"] << std::endl;
-            std::cout << "    Price: " << product["price"] << std::endl;
-            std::cout << "    Stock: " << product["stock"] << std::endl;
-            std::cout << std::endl;
-        }
-      }
-    }
+}
   }
 
     // Setters
@@ -240,7 +236,7 @@ inline void load_json_data_to_map(unordered_map<string, Seller>& seller_map, uno
         try {
             infile >> j;
         } catch (...) {
-            cerr << "Error reading existing JSON data" << endl;
+            /*cerr << "Error reading existing JSON data" << endl;*/
         }
         infile.close();
     } else {
