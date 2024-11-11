@@ -50,20 +50,15 @@ int main() {
     buyer::load_json_data_to_map(buyer_map);
     seller::load_json_data_to_map(seller_map, product_map);
     // Main Choice
-    cout << "███████╗  ░░░░░░  ░█████╗░░█████╗░███╗░░░███╗███╗░░░███╗███████╗██"
-            "████╗░░█████╗░███████╗\n";
-    cout << "██╔════╝  ░░░░░░  ██╔══██╗██╔══██╗████╗░████║████╗░████║██╔════╝██"
-            "╔══██╗██╔══██╗██╔════╝\n";
-    cout << "█████╗░░  █████╗  ██║░░╚═╝██║░░██║██╔████╔██║██╔████╔██║█████╗░░██"
-            "████╔╝██║░░╚═╝█████╗░░\n";
-    cout << "██╔══╝░░  ╚════╝  ██║░░██╗██║░░██║██║╚██╔╝██║██║╚██╔╝██║██╔══╝░░██"
-            "╔══██╗██║░░██╗██╔══╝░░\n";
-    cout << "███████╗  ░░░░░░  ╚█████╔╝╚█████╔╝██║░╚═╝░██║██║░╚═╝░██║███████╗██"
-            "║░░██║╚█████╔╝███████╗\n";
-    cout << "╚══════╝  ░░░░░░  ░╚════╝░░╚════╝░╚═╝░░░░░╚═╝╚═╝░░░░░╚═╝╚══════╝╚═"
-            "╝░░╚═╝░╚════╝░╚══════╝\n\n";
+    cout << "███████╗  ░░░░░░  ░█████╗░░█████╗░███╗░░░███╗███╗░░░███╗███████╗██████╗░░█████╗░███████╗\n";
+    cout << "██╔════╝  ░░░░░░  ██╔══██╗██╔══██╗████╗░████║████╗░████║██╔════╝██╔══██╗██╔══██╗██╔════╝\n";
+    cout << "█████╗░░  █████╗  ██║░░╚═╝██║░░██║██╔████╔██║██╔████╔██║█████╗░░██████╔╝██║░░╚═╝█████╗░░\n";
+    cout << "██╔══╝░░  ╚════╝  ██║░░██╗██║░░██║██║╚██╔╝██║██║╚██╔╝██║██╔══╝░░██╔══██╗██║░░██╗██╔══╝░░\n";
+    cout << "███████╗  ░░░░░░  ╚█████╔╝╚█████╔╝██║░╚═╝░██║██║░╚═╝░██║███████╗██║░░██║╚█████╔╝███████╗\n";
+    cout << "╚══════╝  ░░░░░░  ░╚════╝░░╚════╝░╚═╝░░░░░╚═╝╚═╝░░░░░╚═╝╚══════╝╚═╝░░╚═╝░╚════╝░╚══════╝\n\n";
     cout << "1 . Buyer " << endl;
     cout << "2 . Seller " << endl;
+    cout << "q . quit " << endl;
     cout << "Enter your choice : " << endl;
     cin >> choice;
     if (choice == '1') {
@@ -81,6 +76,7 @@ int main() {
       cout << "5 . View User info " << endl;
       cout << "6 . Add product to cart  " << endl;
       cout << "7 . Add product to favourites" << endl;
+      cout << "b . back " << endl;
       cout << "Enter your choice : " << endl;
       cin >> sec_choice;
 
@@ -162,7 +158,9 @@ int main() {
           cout << "Username doesn't exist!!" << endl;
           break;
         }
+        buyer::load_json_data_to_map(buyer_map);
         buyer_map[username].print_buyer_info();
+        buyer_map[username].get_address();
         break;
 
       case '6':
@@ -229,7 +227,9 @@ int main() {
         cout << "Item added succesfully!" << endl;
 
         break;
-
+      
+      case 'b':
+          break;
       default:
         cout << "Enter valid choice!!!";
         break;
@@ -246,7 +246,7 @@ int main() {
       cout << "2 . Delete User " << endl;
       cout << "3 . View user info " << endl;
       cout << "4 . Add product " << endl;
-
+      cout << "b . back " << endl;
       cout << "Enter your choice : " << endl;
       cin >> sec_choice;
       string username;
@@ -288,7 +288,7 @@ int main() {
         seller::save_data(seller_map, product_map);
         break;
 
-      case 'q':
+      case 'b':
         break;
 
       default:

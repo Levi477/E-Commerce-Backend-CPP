@@ -1,53 +1,108 @@
 {
+    "chokha": {
+        "address": {
+            "city": "Mumbai",
+            "home": "Flat 24B",
+            "state": "MH",
+            "street": "Green Park Road",
+            "zip": "400001"
+        },
+        "email": "chokha@example.com",
+        "phone": "9879261208"
+    },
+    "deep": {
+        "address": {
+            "city": "bhv",
+            "home": "abc",
+            "state": "guj",
+            "street": "st no 4",
+            "zip": "364002"
+        },
+        "email": "deep@gmail.com",
+        "phone": "1234"
+    },
     "ram": {
         "address": {
-            "city": "",
-            "home": "",
-            "state": "",
-            "street": "",
-            "zip": ""
+            "city": "Delhi",
+            "home": "Apartment 45A",
+            "state": "DL",
+            "street": "Metro Avenue",
+            "zip": "110011"
         },
         "cart": [
             {
                 "category": "fashion",
-                "name": "exotic watch",
-                "price": "5000",
-                "stock": "50"
+                "name": "Designer T-Shirt",
+                "price": "800",
+                "stock": "150"
             },
             {
-                "category": "",
-                "name": "xotic glasses",
-                "price": "4000",
-                "stock": "50"
+                "category": "electronics",
+                "name": "Smartphone",
+                "price": "20000",
+                "stock": "100"
             },
             {
-                "category": "",
-                "name": "aptop",
-                "price": "140000",
-                "stock": "10"
+                "category": "kitchenware",
+                "name": "Non-stick Pan",
+                "price": "1200",
+                "stock": "200"
+            },
+            {
+                "category": "electronics",
+                "name": "led tv",
+                "price": "45000",
+                "stock": "30"
             }
         ],
-        "email": "ram@gmail.com",
+        "email": "ram@example.com",
         "favourite": [
             {
                 "category": "fashion",
-                "name": "exotic watch",
-                "price": "5000",
-                "stock": "50"
+                "name": "Leather Wallet",
+                "price": "900",
+                "stock": "100"
             },
             {
-                "category": "fashion",
-                "name": "exotic watch",
-                "price": "5000",
-                "stock": "50"
+                "category": "electronics",
+                "name": "Bluetooth Speaker",
+                "price": "1500",
+                "stock": "200"
             },
             {
-                "category": "fashion",
-                "name": "exotic watch",
-                "price": "5000",
+                "category": "kitchenware",
+                "name": "Blender",
+                "price": "2200",
                 "stock": "50"
             }
         ],
         "phone": "987946"
+    },
+    "shyam": {
+        "address": {
+            "city": "Bangalore",
+            "home": "Villa 12C",
+            "state": "KA",
+            "street": "Spice Lane",
+            "zip": "560001"
+        },
+        "cart": [
+            {
+                "category": "accessories",
+                "name": "Power Bank",
+                "price": "1200",
+                "stock": "300"
+            }
+        ],
+        "email": "shyam@example.com",
+        "favourite": [
+            {
+                "category": "fashion",
+                "name": "Casual Shoes",
+                "price": "2500",
+                "stock": "80"
+            }
+        ],
+        "phone": "9879123456"
     }
 }

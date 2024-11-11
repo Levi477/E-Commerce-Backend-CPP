@@ -26,15 +26,6 @@ private:
     string zip;
 
 public:
-    Address() {}
-
-    Address(string street, string city, string state, string zip) {
-        this->street = street;
-        this->city = city;
-        this->state = state;
-        this->zip = zip;
-    }
-
     // setters
     void set_street(string street) { this->street = street; }
     void set_home_name(string home) { this->home_name = home; }
@@ -49,8 +40,9 @@ public:
     string get_state() const { return state; }
     string get_zip() const { return zip; }
     string get_address() const {
-        return this->home_name + ", " + this->street + ", " + this->city + ", " + this->state + ", " + this->zip + ".";
-    }
+    string ans = this->home_name + ", " + this->street + ", " + this->city + ", " + this->state + ", " + this->zip + ".";
+        return ans;
+  }
     json to_json(){
       return {
         {"home" , home_name},
@@ -131,7 +123,7 @@ inline void register_buyer(unordered_map<string, Buyer> &buyer_map) {
     buyer.set_phone(temp);
 
     cout << "Address: " << endl;
-
+    cin.ignore();
     cout << "Enter home name: ";
     getline(cin,temp);
     buyer.address.set_home_name(temp);
@@ -193,6 +185,14 @@ inline void load_json_data_to_map(unordered_map<string, Buyer> &buyer_map) {
                 );
                 buyer.add_to_cart(product);
             }
+            // Parse address
+            Address addr;
+            addr.set_home_name(buyer_json["address"]["home"].get<string>());
+            addr.set_street(buyer_json["address"]["street"].get<string>());
+            addr.set_city(buyer_json["address"]["city"].get<string>());
+            addr.set_state(buyer_json["address"]["state"].get<string>());
+            addr.set_zip(buyer_json["address"]["zip"].get<string>());
+            buyer.set_addr(addr);
 
             // Parse favourites
             for (const auto& product_json : buyer_json["favourite"]) {

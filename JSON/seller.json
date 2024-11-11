@@ -4,21 +4,13 @@
             "city": "bhv",
             "shop_name": "deep watchmart",
             "state": "guj",
-            "street": "street no.2 ",
+            "street": "street no.2",
             "zip": "364002"
         },
         "email": "deep54@gmail.com",
         "name": "deep gajjar",
         "phone": "9879261208",
         "products": {
-            "": [
-                {
-                    "category": "fashion",
-                    "name": "xotic glasses",
-                    "price": "4000",
-                    "stock": "50"
-                }
-            ],
             "fashion": [
                 {
                     "category": "fashion",
@@ -34,19 +26,195 @@
             "city": "jodhpur",
             "shop_name": "nisarg-sunglasses",
             "state": "rajasthan",
-            "street": "strret no.4",
+            "street": "street no.4",
             "zip": "34002"
         },
         "email": "nisarg@123.com",
         "name": "nisarg patel",
         "phone": "98788787878",
         "products": {
-            "": [
+            "fashion": [
                 {
-                    "category": "tech",
-                    "name": "aptop",
-                    "price": "140000",
+                    "category": "fashion",
+                    "name": "luxury sunglasses",
+                    "price": "6000",
+                    "stock": "40"
+                }
+            ]
+        }
+    },
+    "anita sharma": {
+        "address": {
+            "city": "mumbai",
+            "shop_name": "anita's apparels",
+            "state": "maharashtra",
+            "street": "linking road",
+            "zip": "400050"
+        },
+        "email": "anita@apparels.com",
+        "name": "anita sharma",
+        "phone": "9821223344",
+        "products": {
+            "fashion": [
+                {
+                    "category": "fashion",
+                    "name": "ethnic wear",
+                    "price": "2500",
+                    "stock": "120"
+                }
+            ]
+        }
+    },
+    "vikas kumar": {
+        "address": {
+            "city": "delhi",
+            "shop_name": "tech hub",
+            "state": "delhi",
+            "street": "sector 15",
+            "zip": "110011"
+        },
+        "email": "vikas@techhub.com",
+        "name": "vikas kumar",
+        "phone": "9811122233",
+        "products": {
+            "electronics": [
+                {
+                    "category": "electronics",
+                    "name": "smartphone",
+                    "price": "30000",
+                    "stock": "200"
+                }
+            ]
+        }
+    },
+    "sneha verma": {
+        "address": {
+            "city": "bangalore",
+            "shop_name": "sneha's accessories",
+            "state": "karnataka",
+            "street": "mg road",
+            "zip": "560001"
+        },
+        "email": "sneha@accessories.com",
+        "name": "sneha verma",
+        "phone": "9900990099",
+        "products": {
+            "accessories": [
+                {
+                    "category": "accessories",
+                    "name": "leather wallet",
+                    "price": "1500",
+                    "stock": "100"
+                }
+            ]
+        }
+    },
+    "rajiv singh": {
+        "address": {
+            "city": "lucknow",
+            "shop_name": "rajiv home appliances",
+            "state": "uttar pradesh",
+            "street": "hazratganj",
+            "zip": "226001"
+        },
+        "email": "rajiv@homeappliances.com",
+        "name": "rajiv singh",
+        "phone": "9933221100",
+        "products": {
+            "home_appliances": [
+                {
+                    "category": "home_appliances",
+                    "name": "microwave oven",
+                    "price": "8000",
+                    "stock": "50"
+                }
+            ]
+        }
+    },
+    "priya gupta": {
+        "address": {
+            "city": "chennai",
+            "shop_name": "priya's boutique",
+            "state": "tamil nadu",
+            "street": "anna salai",
+            "zip": "600002"
+        },
+        "email": "priya@boutique.com",
+        "name": "priya gupta",
+        "phone": "9944556677",
+        "products": {
+            "fashion": [
+                {
+                    "category": "fashion",
+                    "name": "designer saree",
+                    "price": "6000",
+                    "stock": "80"
+                }
+            ]
+        }
+    },
+    "amit desai": {
+        "address": {
+            "city": "ahmedabad",
+            "shop_name": "desai electronics",
+            "state": "gujarat",
+            "street": "cg road",
+            "zip": "380009"
+        },
+        "email": "amit@desaielectronics.com",
+        "name": "amit desai",
+        "phone": "9898123456",
+        "products": {
+            "electronics": [
+                {
+                    "category": "electronics",
+                    "name": "led tv",
+                    "price": "45000",
+                    "stock": "30"
+                }
+            ]
+        }
+    },
+    "kavita rao": {
+        "address": {
+            "city": "kolkata",
+            "shop_name": "kavita's jewelry",
+            "state": "west bengal",
+            "street": "park street",
+            "zip": "700016"
+        },
+        "email": "kavita@jewelry.com",
+        "name": "kavita rao",
+        "phone": "9833445566",
+        "products": {
+            "jewelry": [
+                {
+                    "category": "jewelry",
+                    "name": "gold necklace",
+                    "price": "50000",
                     "stock": "10"
+                }
+            ]
+        }
+    },
+    "arjun mehta": {
+        "address": {
+            "city": "hyderabad",
+            "shop_name": "arjun's sports",
+            "state": "telangana",
+            "street": "banjara hills",
+            "zip": "500034"
+        },
+        "email": "arjun@sports.com",
+        "name": "arjun mehta",
+        "phone": "9876543210",
+        "products": {
+            "sports": [
+                {
+                    "category": "sports",
+                    "name": "cricket bat",
+                    "price": "2000",
+                    "stock": "150"
                 }
             ]
         }
